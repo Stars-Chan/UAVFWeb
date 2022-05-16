@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>无人机光电吊舱紧固件分类及其测量系统</var></title>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header>
+        <img src="./asset/v4r.png" alt="">
+        <span>无人机光电吊舱紧固件分类及其测量系统</span>
+    </header>
+    <!-- 导航栏 -->
+    <nav>
+        <ul class="nav-left">
+            <li><button id="detect-btn" onclick="detectState()"
+                    style="background-color: #fff;color: #4682B4;">旋转检测</button></li>
+            <li><button id="measure-btn" onclick="measureState()">视觉测量</button></li>
+        </ul>
+        <span class="nav-right">
+            <span class="nav-radius" id="nav-radius1">1</span>
+            <span class="nav-radius" id="nav-radius2">2</span>
+            <span class="nav-time" id="time"></span>
+            <span class="nav-user"><a href="" style="color: #fff;" id="userState">未登录</a> </span>
+            <span class="nav-exit"><button id="nav-login-btn" onclick="loginSystem()"
+                    >登录</button> <button id="nav-exit-btn" style="background-color: #EEE9E9;color: #4682B4;"
+                    onclick="exitSystem()">退出</button></span>
+        </span>
+    </nav>
+    <article>
+        <img id="pic1" src="./asset/source.png" alt="">
+        <span class="article-right" id="detect-form">
+            <div class="form-title">检测结果</div>
+            <div class="form-style">
+                <table border="0" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                    <tr>
+                        <td width="10%" class="btbg font-center titfont">序号</td>
+                        <td width="13%" class="btbg font-center titfont">类别</td>
+                        <td width="13%" class="btbg font-center titfont">X</td>
+                        <td width="13%" class="btbg font-center titfont">Y</td>
+                        <td width="13%" class="btbg font-center titfont">W</td>
+                        <td width="13%" class="btbg font-center titfont">H</td>
+                        <td width="13%" class="btbg font-center titfont">角度</td>
+                        <td width="12%" class="btbg font-center titfont">置信度</td>
+                    </tr>
+                    <tr id="trdetect1">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr id="trdetect2">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr id="trdetect3">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr id="trdetect4">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-title">分拣记录</div>
+            <div class="form-style">
+                <table width="100%" border="0" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                    <tr>
+                        <td width="10%" class="btbg font-center titfont">序号</td>
+                        <td width="13%" class="btbg font-center titfont">类别</td>
+                        <td width="12%" class="btbg font-center titfont">置信度</td>
+                        <td width="30%" class="btbg font-center titfont">编号</td>
+                        <td width="35%" class="btbg font-center titfont">分拣时间</td>
+                    </tr>
+                    <tr id="trpick1">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr id="trpick2">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-title">控制区域</div>
+            <span class="article-btn">
+                <button onclick="openCamera()">打开相机</button>
+                <button onclick="production()">生产模式</button>
+                <button onclick="production()">调试模式</button>
+                <button onclick="stopDetect()">停止检测</button>
+                <button onclick="closeCamera()">关闭相机</button>
+                <button onclick="derivedRecord()">导出记录</button>
+            </span>
+        </span>
+        <span class="article-right" id="measure-form" style="display: none;">
+            <div class="form-title">像素标定及参数设置</div>
+            <div class="form-style">
+                <table border="0" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                    <tr>
+                        <td width="34%" class="btbg font-center titfont"></td>
+                        <td width="21%" class="btbg font-center titfont">外螺纹大径</td>
+                        <td width="15%" class="btbg font-center titfont">直径</td>
+                        <td width="15%" class="btbg font-center titfont">孔径</td>
+                        <td width="15%" class="btbg font-center titfont">操作</td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center">真实值/mm</td>
+                        <td class="font-center">7.962</td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"><button class="form-btn">确认</button></td>
+                    </tr>
+                    <tr id="trdema1">
+                        <td class="btbg2 font-center">测量值/pixel</td>
+                        <td class="font-center">312.360</td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"><button class="form-btn" onclick="demarcate()">测量</button></td>
+                    </tr>
+                    <tr id="trdema2">
+                        <td class="btbg2 font-center">标定系数/(pixel/mm)</td>
+                        <td colspan="3" class="font-center">39.231</td>
+                        <td class="font-center"><button class="form-btn">应用</button></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center">最小值</td>
+                        <td class="font-center">7.76</td>
+                        <td class="font-center">4.82</td>
+                        <td class="font-center">6.00</td>
+                        <td class="font-center" rowspan="2"> <button class="form-btn">设置</button> </td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center">最大值</td>
+                        <td class="font-center">7.97</td>
+                        <td class="font-center">5.00</td>
+                        <td class="font-center">6.20</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-title">测量记录</div>
+            <div class="form-style">
+                <table width="100%" border="0" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                    <tr>
+                        <td width="10%" class="btbg font-center titfont">序号</td>
+                        <td width="24%" class="btbg font-center titfont">编号</td>
+                        <td width="21%" class="btbg font-center titfont">外螺纹大径</td>
+                        <td width="15%" class="btbg font-center titfont">直径</td>
+                        <td width="15%" class="btbg font-center titfont">孔径</td>
+                        <td width="15%" class="btbg font-center titfont">测量结果</td>
+                    </tr>
+                    <tr id="trmeasure1">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr id="trmeasure2">
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="btbg2 font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                        <td class="font-center"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-title">控制区域</div>
+            <span class="article-btn">
+                <button onclick="openCamera2()">打开相机</button>
+                <button onclick="production2()">生产模式</button>
+                <button onclick="production2()">调试模式</button>
+                <button onclick="stopMeasure()">停止检测</button>
+                <button onclick="closeCamera()">关闭相机</button>
+                <button onclick="derivedRecord()">导出记录</button>
+            </span>
+
+        </span>
+
+    </article>
+    <span style="margin: 25px;">Copyright&copy;2022 Vision4robotics</span>
+    <!-- 测量结果 -->
+    <div id="measure_back"></div>
+    <div id="measure_main">
+        <div class="measure_top">
+            <a href="javascript:void(0)" onclick="measure_cancel()">&#935;</a>
+        </div>
+        <h3 style="text-align: center;margin-top: 5px;margin-bottom: 15px;">测量结果：<span
+                style="color: rgb(0, 166, 0);">合格</span></h3>
+        <div class="param">
+            大径：<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>合格值：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+        <div class="param">
+            直径：<span style="color: rgb(2, 163, 2);">4.88</span>&nbsp;&nbsp;&nbsp;<span>合格值：4.82 - 5.00</span>
+        </div>
+        <div class="param">
+            孔径：<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>合格值：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+    </div>
+
+    <!-- 登录系统 -->
+    <div id="login_back"></div>
+    <div id="login_main">
+        <h2>请输入用户密码信息登录系统</h2>
+        <div class="param">
+            <!-- username部分 -->
+            用户：
+            <input type="text" placeholder="username" name="username" id="uname"> <!-- 用文本框实现的username的输入 -->
+        </div>
+        <div class="param">
+            密码：
+            <input type="password" placeholder="password" name="password" id="pword"> <!-- 用password文本框实现的密码输入 -->
+        </div>
+        <div class="login_submit">
+            <button class="confirm" onclick="loginConfirm()">确定</button>
+        </div>
+    </div>
+    <!-- 退出系统 -->
+    <div id="exit_back"></div>
+    <div id="exit_main">
+        <h2>请输入用户密码信息退出系统</h2>
+        <div class="param">
+            <!-- username部分 -->
+            用户：
+            <input type="text" placeholder="username" name="username" id="euname"> <!-- 用文本框实现的username的输入 -->
+        </div>
+        <div class="param">
+            密码：
+            <input type="password" placeholder="password" name="password" id="epword"> <!-- 用password文本框实现的密码输入 -->
+        </div>
+        <div class="submit">
+            <button class="cancel" onclick="cancel()">取消</button>
+            <button class="confirm" onclick="confirm()">确定</button>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
